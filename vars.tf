@@ -53,6 +53,11 @@ variable "private_key" {
   description = "[ENV VARIABLE] Path of private key to access your AWS instance."
 }
 
+variable "key_name" {
+  type        = string
+  description = "[ENV VARIABLE] Name of the Key Pair on AWS"
+}
+
 variable "db_name" {
   type        = string
   description = "[ENV VARIABLE] Database name."

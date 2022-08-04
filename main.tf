@@ -8,7 +8,7 @@ provider "aws" {
 resource "aws_instance" "knowledgebase_app" {
   ami           = var.ami
   instance_type = var.instance_type
-  key_name      = "production"
+  key_name      = var.key_name
   user_data     = data.template_file.setup_app.rendered
 
   provisioner "file" {
@@ -38,7 +38,7 @@ resource "aws_instance" "knowledgebase_app" {
 resource "aws_instance" "knowledgebase_db" {
   ami           = var.ami
   instance_type = var.instance_type
-  key_name      = "production"
+  key_name      = var.key_name
   user_data     = data.template_file.setup_db.rendered
 
   provisioner "file" {
@@ -80,18 +80,18 @@ data "template_file" "setup_app" {
   template = file("templates/setup_app.tpl")
 
   vars = {
-    instance_name              = var.tag_app_name
-    python_version             = var.python_version
-    admin_username             = var.admin_username
-    admin_email                = var.admin_email
-    admin_password             = var.admin_password
-    git_branch_name            = var.git_branch_name
-    git_repo_url               = var.git_repo_url
-    db_name                    = var.db_name
-    db_user                    = var.db_user
-    db_password                = var.db_password
-    db_host                    = aws_instance.knowledgebase_db.private_ip
-    db_port                    = var.db_port
-    project_folder             = var.project_folder
+    instance_name   = var.tag_app_name
+    python_version  = var.python_version
+    admin_username  = var.admin_username
+    admin_email     = var.admin_email
+    admin_password  = var.admin_password
+    git_branch_name = var.git_branch_name
+    git_repo_url    = var.git_repo_url
+    db_name         = var.db_name
+    db_user         = var.db_user
+    db_password     = var.db_password
+    db_host         = aws_instance.knowledgebase_db.private_ip
+    db_port         = var.db_port
+    project_folder  = var.project_folder
   }
 }
